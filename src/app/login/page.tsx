@@ -102,11 +102,12 @@ function LoginForm() {
                   alignItems: "center",
                   justifyContent: "center",
                   margin: "0 auto var(--s-6)",
-                  fontSize: "1.5rem",
                   color: "var(--color-green)",
                 }}
               >
-                &#10003;
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M20 6L9 17l-5-5" />
+                </svg>
               </div>
               <h1 style={{ margin: "0 0 var(--s-3)", fontSize: "1.25rem", fontWeight: 700 }}>
                 Check your email
@@ -135,7 +136,7 @@ function LoginForm() {
                   Sign in
                 </h1>
                 <p className="text-secondary text-sm" style={{ margin: 0 }}>
-                  No password needed. We will send you a magic link.
+                  No password needed. We'll send you a magic link.
                 </p>
               </div>
 

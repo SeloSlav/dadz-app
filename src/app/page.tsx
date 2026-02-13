@@ -48,8 +48,8 @@ export default async function LandingPage() {
                   className="text-xl text-secondary"
                   style={{ marginTop: "var(--s-6)", maxWidth: "36rem", lineHeight: 1.6 }}
                 >
-                  Kids are finally asleep. You have maybe 90 minutes. Dadz finds you another
-                  dad who is online right now, or lets you lock in a session for later. No
+                  Kids are finally asleep. You have maybe 90 minutes. Dadz finds you dads
+                  to play with—online right now—or lets you lock in a session for later. No
                   guilt. No pressure. Just play.
                 </p>
 
@@ -128,11 +128,11 @@ export default async function LandingPage() {
               {[
                 {
                   title: "You finally have an hour. Nobody is online.",
-                  body: "The window closes fast. By the time someone responds to your Discord ping, it is gone. Another night of solo queuing or scrolling your phone.",
+                  body: "The window closes fast. By the time someone responds to your Discord ping, it's gone. Another night of solo queuing or scrolling your phone.",
                 },
                 {
                   title: "Your old crew moved on.",
-                  body: "Different schedules. Different games. Different priorities. You are not going to organize a group chat at 11pm on a Tuesday to see who is free.",
+                  body: "Different schedules. Different games. Different priorities. You're not gonna organize a group chat at 11pm on a Tuesday to see who's free.",
                 },
                 {
                   title: "Scheduling across bedtimes and timezones? Forget it.",
@@ -189,19 +189,19 @@ export default async function LandingPage() {
                   step: 1,
                   title: "Drop your email, get a magic link",
                   description:
-                    "No passwords. No app downloads. Click the link, you are in. Takes about 10 seconds.",
+                    "No passwords. No app downloads. Click the link, you're in. Takes about 10 seconds.",
                 },
                 {
                   step: 2,
                   title: "Set your hours and your games",
                   description:
-                    "Tell us when you are usually free and what you play. We do the rest. Your schedule, your rules.",
+                    "Tell us when you're usually free and what you play. We do the rest. Your schedule, your rules.",
                 },
                 {
                   step: 3,
                   title: "Play now or lock in a session",
                   description:
-                    "See who is online right now and jump in. Or schedule a session with another dad for a time that works.",
+                    "See who's online right now and jump in. Or schedule a session with dads for a time that works.",
                 },
               ]}
             />
@@ -238,7 +238,7 @@ export default async function LandingPage() {
             <div className="grid-3">
               {[
                 {
-                  quote: "I played more this week than the last two months combined. Having someone who is actually online when I am changes everything.",
+                  quote: "I played more this week than the last two months combined. Having someone who's actually online when I'm free changes everything.",
                   name: "Mark, 38",
                   detail: "Dad of 2, EST timezone",
                 },
@@ -292,7 +292,7 @@ export default async function LandingPage() {
                 {
                   stage: "Week 1",
                   title: "Play tonight. Not next month.",
-                  desc: "Find a dad who is online now. One session is all it takes to see the difference.",
+                  desc: "Find dads to play with, online now. One session's all it takes to see the difference.",
                   color: "var(--color-accent-light)",
                 },
                 {
@@ -363,14 +363,14 @@ export default async function LandingPage() {
             <FAQ
               items={[
                 {
-                  question: "What is a magic link?",
+                  question: "What's a magic link?",
                   answer:
-                    "A magic link is a one-time sign-in link we send to your email. Click it and you are in. No password to remember, no password to leak. If you have used Slack sign-in, same idea.",
+                    "A magic link's a one-time sign-in link we send to your email. Click it and you're in. No password to remember, no password to leak. If you've used Slack sign-in, same idea.",
                 },
                 {
                   question: "When will Steam sign-in be available?",
                   answer:
-                    "Steam integration is coming soon. For now, use your email to get started. When Steam is ready, you will be able to link your account and import your library automatically.",
+                    "Steam integration's coming soon. For now, use your email to get started. When Steam's ready, you'll be able to link your account and import your library automatically.",
                 },
                 {
                   question: "Is this only for dads?",
@@ -385,12 +385,12 @@ export default async function LandingPage() {
                 {
                   question: "Is it really free?",
                   answer:
-                    "Yes. No premium tiers. No ads. No selling your data. We built this because we needed it. If costs grow, we will figure it out without making you pay to find someone to play with.",
+                    "Yes. No premium tiers. No ads. No selling your data. We built this because we needed it. If costs grow, we'll figure it out without making you pay to find someone to play with.",
                 },
                 {
-                  question: "What if nobody is online when I am?",
+                  question: "What if nobody's online when I am?",
                   answer:
-                    "That is exactly what scheduling fixes. Add your usual windows and we will match you with dads in overlapping timezones. The more dads join, the more likely someone is always on.",
+                    "That's exactly what scheduling fixes. Add your usual windows and we'll match you with dads in overlapping timezones. The more dads join, the more likely someone's always on.",
                 },
               ]}
             />

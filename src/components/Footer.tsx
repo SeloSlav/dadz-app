@@ -19,7 +19,7 @@ export function Footer() {
               dadz
             </p>
             <p className="text-muted text-sm" style={{ marginTop: "var(--s-2)", maxWidth: "24rem" }}>
-              Find another dad who is online now. Schedule sessions. No bullshit.
+              Find dads to play with—online now. Schedule sessions. No bullshit.
             </p>
           </div>
 

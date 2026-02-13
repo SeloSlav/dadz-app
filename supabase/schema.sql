@@ -23,18 +23,22 @@ create table if not exists public.availability (
   updated_at timestamptz default now()
 );
 
--- Game preferences: platforms, genres, play style (for future matchmaking)
+-- Game preferences: platforms, genres, game titles, play style (for future matchmaking)
 create table if not exists public.game_preferences (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null references public.profiles (id) on delete cascade,
   platforms text[] default '{}',
   genres text[] default '{}',
+  game_titles text[] default '{}',
   voice_chat boolean default true,
   play_style text,
   notes text,
   created_at timestamptz default now(),
   updated_at timestamptz default now()
 );
+
+-- Add game_titles if table already exists (run separately if needed)
+-- alter table public.game_preferences add column if not exists game_titles text[] default '{}';
 
 -- Enable RLS on all tables
 alter table public.profiles enable row level security;

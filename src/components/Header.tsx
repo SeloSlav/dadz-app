@@ -38,14 +38,9 @@ export function Header({ user, variant = "solid" }: HeaderProps) {
 
         <nav className="flex items-center gap-2">
           {user ? (
-            <>
-              <Link href="/app" className="btn btn-ghost btn-sm">
-                Dashboard
-              </Link>
-              <Link href="/profile" className="btn btn-ghost btn-sm">
-                Profile
-              </Link>
-            </>
+            <Link href="/app" className="btn btn-primary btn-sm">
+              Go play
+            </Link>
           ) : (
             <>
               <Link href="/#how-it-works" className="btn btn-ghost btn-sm hide-mobile">

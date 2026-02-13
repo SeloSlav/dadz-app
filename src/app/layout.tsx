@@ -3,7 +3,7 @@ import "./globals.css";
 import { ToastProvider } from "@/components/Toast";
 
 export const metadata: Metadata = {
-  title: "Dadz | Find another dad who is online now",
+  title: "Dadz | Find dads to play with—online now",
   description:
     "Dads only. Find a session. Schedule when you can play. No bullshit.",
 };

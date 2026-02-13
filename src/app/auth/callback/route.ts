@@ -30,12 +30,8 @@ export async function GET(request: Request) {
         { onConflict: "id" }
       );
 
-      const hasDisplayName = !!existingProfile?.display_name?.trim();
-      const redirectTo = hasDisplayName ? next : "/profile";
-      const redirectUrl =
-        redirectTo.startsWith("/")
-          ? `${origin}${redirectTo}${!hasDisplayName ? `?next=${encodeURIComponent(next)}` : ""}`
-          : redirectTo;
+      const redirectTo = next.startsWith("/") ? next : "/app";
+      const redirectUrl = redirectTo.startsWith("/") ? `${origin}${redirectTo}` : redirectTo;
 
       return NextResponse.redirect(redirectUrl);
     }

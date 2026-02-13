@@ -263,6 +263,26 @@ img, svg { display: block; max-width: 100%; }
 }
 .input:disabled { opacity: 0.5; cursor: not-allowed; }
 
+/* Time/date inputs: dark theme for native picker */
+input[type="time"],
+input[type="date"],
+input[type="datetime-local"] {
+  color-scheme: dark;
+  min-height: 44px;
+  cursor: pointer;
+}
+input[type="time"]::-webkit-calendar-picker-indicator,
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: brightness(0) invert(1);
+  opacity: 1;
+  cursor: pointer;
+  padding: 4px;
+}
+input[type="time"]::-webkit-datetime-edit,
+input[type="date"]::-webkit-datetime-edit {
+  color: var(--color-fg);
+}
+
 .input-lg {
   padding: var(--s-4) var(--s-5);
   font-size: 1.0625rem;
@@ -324,6 +344,11 @@ label {
   border-color: var(--color-border-accent);
   background: linear-gradient(180deg, rgba(79,143,255,0.08) 0%, rgba(21,29,46,0.95) 100%);
   box-shadow: var(--shadow-card), 0 0 40px rgba(79,143,255,0.04);
+}
+
+.card-done {
+  border-color: rgba(52,211,153,0.25);
+  background: linear-gradient(180deg, rgba(52,211,153,0.04) 0%, rgba(21,29,46,0.95) 100%);
 }
 
 .card-header  { margin-bottom: var(--s-4); }
@@ -402,6 +427,25 @@ label {
 .stack > * + *   { margin-top: var(--s-4); }
 .stack-2 > * + * { margin-top: var(--s-2); }
 .stack-3 > * + * { margin-top: var(--s-3); }
+
+/* Styled scrollbars for scrollable panes */
+.scrollbar-styled {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-fg-subtle) transparent;
+}
+.scrollbar-styled::-webkit-scrollbar {
+  width: 8px;
+}
+.scrollbar-styled::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-styled::-webkit-scrollbar-thumb {
+  background: var(--color-fg-subtle);
+  border-radius: var(--r-full);
+}
+.scrollbar-styled::-webkit-scrollbar-thumb:hover {
+  background: var(--color-fg-muted);
+}
 .stack-4 > * + * { margin-top: var(--s-4); }
 .stack-6 > * + * { margin-top: var(--s-6); }
 .stack-8 > * + * { margin-top: var(--s-8); }

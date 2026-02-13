@@ -49,7 +49,9 @@ export function HeroForm() {
           maxWidth: "32rem",
         }}
       >
-        <span style={{ fontSize: "1.25rem" }}>&#10003;</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-green)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M20 6L9 17l-5-5" />
+        </svg>
         <span style={{ fontSize: "0.9375rem" }}>
           Magic link sent to <strong>{email}</strong>. Check your inbox.
         </span>
