@@ -51,8 +51,8 @@ export default async function AppHomePage() {
             className="animate-fade-up"
             style={{ maxWidth: "42rem", marginBottom: "var(--s-12)" }}
           >
-            <p className="badge badge-green" style={{ marginBottom: "var(--s-4)" }}>
-              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--color-green)", display: "inline-block" }} />
+            <p className="badge" style={{ marginBottom: "var(--s-4)" }}>
+              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--color-accent)", display: "inline-block" }} />
               You are in
             </p>
             <h1 className="text-hero" style={{ margin: 0 }}>

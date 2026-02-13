@@ -3,9 +3,9 @@ import "./globals.css";
 import { ToastProvider } from "@/components/Toast";
 
 export const metadata: Metadata = {
-  title: "Dadz | Gaming when life does not fit on a calendar",
+  title: "Dadz | Find another dad who is online now",
   description:
-    "Find another dad who is online now. Schedule sessions in advance. No guilt, no pressure.",
+    "Dads only. Find a session. Schedule when you can play. No bullshit.",
 };
 
 export default function RootLayout({
@@ -15,8 +15,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
-        <ToastProvider>{children}</ToastProvider>
+      <body style={{ position: "relative" }}>
+        <div style={{ position: "relative", zIndex: 1 }}>
+          <ToastProvider>{children}</ToastProvider>
+        </div>
       </body>
     </html>
   );

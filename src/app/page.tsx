@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { createClient } from "@/lib/supabase/server";
 import { Header } from "@/components/Header";
 import { HeroForm } from "@/components/HeroForm";
@@ -23,47 +24,93 @@ export default async function LandingPage() {
             ═══════════════════════════════════════════ */}
         <section className="section-lg section-glow" style={{ overflow: "hidden" }}>
           <div className="container" style={{ position: "relative", zIndex: 1 }}>
-            <div className="animate-fade-up" style={{ maxWidth: "42rem" }}>
-              <span className="badge" style={{ marginBottom: "var(--s-6)" }}>
-                <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--color-green)", display: "inline-block" }} />
-                Built by dads, for dads
-              </span>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr",
+                gap: "var(--s-12)",
+                alignItems: "center",
+              }}
+              className="hero-grid"
+            >
+              <div className="animate-fade-up" style={{ maxWidth: "42rem" }}>
+                <span className="badge" style={{ marginBottom: "var(--s-6)" }}>
+                  <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--color-accent)", display: "inline-block" }} />
+                  Dads only
+                </span>
 
-              <h1 className="text-display text-balance" style={{ margin: 0 }}>
-                Your hour to play just got{" "}
-                <span className="text-gradient">a whole lot better</span>
-              </h1>
+                <h1 className="text-display text-balance" style={{ margin: 0 }}>
+                  Your hour to play just got{" "}
+                  <span className="text-gradient">a whole lot better</span>
+                </h1>
 
-              <p
-                className="text-xl text-secondary"
-                style={{ marginTop: "var(--s-6)", maxWidth: "36rem", lineHeight: 1.6 }}
-              >
-                Kids are finally asleep. You have maybe 90 minutes. Dadz finds you another
-                dad who is online right now, or lets you lock in a session for later. No
-                guilt. No pressure. Just play.
-              </p>
+                <p
+                  className="text-xl text-secondary"
+                  style={{ marginTop: "var(--s-6)", maxWidth: "36rem", lineHeight: 1.6 }}
+                >
+                  Kids are finally asleep. You have maybe 90 minutes. Dadz finds you another
+                  dad who is online right now, or lets you lock in a session for later. No
+                  guilt. No pressure. Just play.
+                </p>
 
-              <div style={{ marginTop: "var(--s-8)" }}>
-                <HeroForm />
+                <div style={{ marginTop: "var(--s-8)" }}>
+                  <HeroForm />
+                </div>
+
+                {/* Trust signals */}
+                <div
+                  className="flex flex-wrap gap-6 text-sm text-muted"
+                  style={{ marginTop: "var(--s-6)" }}
+                >
+                  <span className="flex items-center gap-2">
+                    <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M8 1l2.35 4.76 5.25.77-3.8 3.7.9 5.24L8 13.27l-4.7 2.47.9-5.24-3.8-3.7 5.25-.77L8 1z" fill="var(--color-accent)"/></svg>
+                    Free
+                  </span>
+                  <span className="flex items-center gap-2">
+                    <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M13.3 4.3a1 1 0 0 1 0 1.4l-6 6a1 1 0 0 1-1.4 0l-3-3a1 1 0 1 1 1.4-1.4L6.7 9.6l5.3-5.3a1 1 0 0 1 1.3 0z" fill="var(--color-accent)"/></svg>
+                    No spam
+                  </span>
+                  <span className="flex items-center gap-2">
+                    <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 12.5A5.5 5.5 0 1 1 8 2.5a5.5 5.5 0 0 1 0 11zM5 7a1 1 0 1 1 2 0 1 1 0 0 1-2 0zm4 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0zm-3.5 3a.5.5 0 0 1 .4-.2h4.2a.5.5 0 0 1 .4.8A3.5 3.5 0 0 1 8 12a3.5 3.5 0 0 1-2.5-1.4.5.5 0 0 1 0-.6z" fill="var(--color-accent)"/></svg>
+                    Delete anytime
+                  </span>
+                </div>
               </div>
 
-              {/* Trust signals */}
+              {/* Hero image - visible on desktop */}
               <div
-                className="flex flex-wrap gap-6 text-sm text-muted"
-                style={{ marginTop: "var(--s-6)" }}
+                className="animate-fade-up animate-delay-2 hero-image-wrap"
+                style={{
+                  display: "none",
+                  position: "relative",
+                  borderRadius: "var(--r-2xl)",
+                  overflow: "hidden",
+                  boxShadow: "0 24px 80px rgba(0,0,0,0.5), 0 0 60px rgba(79,143,255,0.08)",
+                  border: "1px solid var(--color-border-accent)",
+                }}
               >
-                <span className="flex items-center gap-2">
-                  <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M8 1l2.35 4.76 5.25.77-3.8 3.7.9 5.24L8 13.27l-4.7 2.47.9-5.24-3.8-3.7 5.25-.77L8 1z" fill="var(--color-amber)"/></svg>
-                  Free forever
-                </span>
-                <span className="flex items-center gap-2">
-                  <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M13.3 4.3a1 1 0 0 1 0 1.4l-6 6a1 1 0 0 1-1.4 0l-3-3a1 1 0 1 1 1.4-1.4L6.7 9.6l5.3-5.3a1 1 0 0 1 1.3 0z" fill="var(--color-green)"/></svg>
-                  No spam, ever
-                </span>
-                <span className="flex items-center gap-2">
-                  <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 12.5A5.5 5.5 0 1 1 8 2.5a5.5 5.5 0 0 1 0 11zM5 7a1 1 0 1 1 2 0 1 1 0 0 1-2 0zm4 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0zm-3.5 3a.5.5 0 0 1 .4-.2h4.2a.5.5 0 0 1 .4.8A3.5 3.5 0 0 1 8 12a3.5 3.5 0 0 1-2.5-1.4.5.5 0 0 1 0-.6z" fill="var(--color-accent)"/></svg>
-                  Delete anytime
-                </span>
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    background: "linear-gradient(180deg, rgba(79,143,255,0.08) 0%, transparent 50%)",
+                    zIndex: 1,
+                    pointerEvents: "none",
+                  }}
+                />
+                <Image
+                  src="/hero-dad-gaming-baby.png"
+                  alt="Dad gaming late at night with a baby in the background"
+                  width={600}
+                  height={400}
+                  priority
+                  style={{
+                    width: "100%",
+                    height: "auto",
+                    objectFit: "cover",
+                    aspectRatio: "4/3",
+                  }}
+                />
               </div>
             </div>
           </div>
@@ -73,33 +120,32 @@ export default async function LandingPage() {
             3. PROBLEM-AGITATE
             Job: Make status quo painful
             ═══════════════════════════════════════════ */}
-        <section className="section section-lines" id="problems">
+        <section className="section section-lines section-alt" id="problems">
           <div className="container container-mid">
             <p className="badge" style={{ marginBottom: "var(--s-6)" }}>Sound familiar?</p>
 
             <div className="grid-3" style={{ marginBottom: "var(--s-12)" }}>
               {[
                 {
-                  emoji: "&#128564;",
                   title: "You finally have an hour. Nobody is online.",
                   body: "The window closes fast. By the time someone responds to your Discord ping, it is gone. Another night of solo queuing or scrolling your phone.",
                 },
                 {
-                  emoji: "&#128100;",
                   title: "Your old crew moved on.",
                   body: "Different schedules. Different games. Different priorities. You are not going to organize a group chat at 11pm on a Tuesday to see who is free.",
                 },
                 {
-                  emoji: "&#128197;",
                   title: "Scheduling across bedtimes and timezones? Forget it.",
                   body: "You need something that understands your life. Not another calendar invite that gets cancelled because someone's kid woke up.",
                 },
               ].map((problem, i) => (
                 <div key={i} className={`card animate-fade-up animate-delay-${i + 1}`}>
                   <div
-                    style={{ fontSize: "1.75rem", marginBottom: "var(--s-3)" }}
-                    dangerouslySetInnerHTML={{ __html: problem.emoji }}
-                  />
+                    className="step-number"
+                    style={{ marginBottom: "var(--s-3)" }}
+                  >
+                    {i + 1}
+                  </div>
                   <h3 style={{ margin: "0 0 var(--s-2)", fontSize: "1.0625rem", fontWeight: 600 }}>
                     {problem.title}
                   </h3>
@@ -115,10 +161,9 @@ export default async function LandingPage() {
               style={{ padding: "var(--s-8)", textAlign: "center" }}
             >
               <p className="text-lg" style={{ margin: 0, maxWidth: "34rem", marginInline: "auto" }}>
-                We built Dadz because we lived this. Every feature exists because a dad
-                said{" "}
+                We built this because we lived it. Every feature exists because a dad said:{" "}
                 <em style={{ color: "var(--color-accent-light)" }}>
-                  &quot;I just want to play when I can, with someone who gets it.&quot;
+                  &quot;I want to play when I can. With someone who gets it. No bullshit.&quot;
                 </em>
               </p>
             </div>
@@ -162,19 +207,16 @@ export default async function LandingPage() {
             />
 
             <div
-              className="text-center"
+              className="text-center card-accent"
               style={{
                 marginTop: "var(--s-12)",
-                padding: "var(--s-8) var(--s-6)",
-                background: "var(--grad-surface)",
+                padding: "var(--s-10) var(--s-8)",
                 borderRadius: "var(--r-2xl)",
-                border: "1px solid var(--color-border)",
               }}
             >
-              <p className="text-h3" style={{ margin: "0 0 var(--s-1)" }}>All of this is free.</p>
+              <p className="text-h3" style={{ margin: "0 0 var(--s-1)" }}>Free. No subscriptions.</p>
               <p className="text-secondary text-sm" style={{ margin: 0 }}>
-                No premium tiers. No pay-to-match. Dadz is free because dads have
-                enough subscriptions already.
+                No premium tiers. No pay-to-match. No ads. We built it because we needed it.
               </p>
             </div>
           </div>
@@ -184,12 +226,12 @@ export default async function LandingPage() {
             5. SOCIAL PROOF
             Job: Let others convince them
             ═══════════════════════════════════════════ */}
-        <section className="section section-lines">
+        <section className="section section-lines section-alt">
           <div className="container">
             <div className="text-center" style={{ marginBottom: "var(--s-12)" }}>
-              <h2 className="text-h2 text-balance">Dads who tried it</h2>
+              <h2 className="text-h2 text-balance">What dads are saying</h2>
               <p className="text-secondary" style={{ marginTop: "var(--s-3)" }}>
-                Early access feedback from the community.
+                Real feedback. No fluff.
               </p>
             </div>
 
@@ -215,7 +257,7 @@ export default async function LandingPage() {
                   <div style={{ display: "flex", gap: "2px", marginBottom: "var(--s-4)" }}>
                     {[1, 2, 3, 4, 5].map((s) => (
                       <svg key={s} width="16" height="16" fill="none" viewBox="0 0 16 16">
-                        <path d="M8 1l2.35 4.76 5.25.77-3.8 3.7.9 5.24L8 13.27l-4.7 2.47.9-5.24-3.8-3.7 5.25-.77L8 1z" fill="var(--color-amber)" />
+                        <path d="M8 1l2.35 4.76 5.25.77-3.8 3.7.9 5.24L8 13.27l-4.7 2.47.9-5.24-3.8-3.7 5.25-.77L8 1z" fill="var(--color-accent)" />
                       </svg>
                     ))}
                   </div>
@@ -312,7 +354,7 @@ export default async function LandingPage() {
         {/* ═══════════════════════════════════════════
             FAQ
             ═══════════════════════════════════════════ */}
-        <section className="section section-lines" id="faq">
+        <section className="section section-lines section-alt" id="faq">
           <div className="container container-mid">
             <div className="text-center" style={{ marginBottom: "var(--s-12)" }}>
               <h2 className="text-h2">Questions</h2>
@@ -333,7 +375,7 @@ export default async function LandingPage() {
                 {
                   question: "Is this only for dads?",
                   answer:
-                    "Dadz is built for parents who game. If you are a dad, stepdad, or identify as one, you belong here. We keep the community focused so the scheduling and matchmaking stays relevant to how we actually live.",
+                    "Dads only. Fathers. Stepdads. No exceptions. We keep the community tight so the matchmaking actually works.",
                 },
                 {
                   question: "How do timezones work?",
@@ -371,7 +413,7 @@ export default async function LandingPage() {
                 style={{ marginBottom: "var(--s-6)" }}
               >
                 <div className="flex" style={{ marginLeft: "-4px" }}>
-                  {["#4f8fff", "#34d399", "#f472b6", "#fbbf24", "#a855f7"].map(
+                  {["#4f8fff", "#5b6b7d", "#3d4f5f", "#6b7d8f", "#4f8fff"].map(
                     (color, i) => (
                       <div
                         key={i}
@@ -401,7 +443,7 @@ export default async function LandingPage() {
                 Ready to stop gaming alone?
               </h2>
               <p className="text-secondary" style={{ margin: "0 0 var(--s-8)" }}>
-                Join dads who are already finding sessions that fit their life. Takes 10 seconds.
+                Get in. Find a session. Play. Takes 10 seconds.
               </p>
               <Link href="/login" className="btn btn-primary btn-lg" style={{ display: "inline-flex" }}>
                 Get a magic link

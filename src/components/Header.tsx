@@ -14,9 +14,9 @@ export function Header({ user, variant = "solid" }: HeaderProps) {
         position: "sticky",
         top: 0,
         zIndex: 100,
-        background: bg,
-        backdropFilter: variant === "transparent" ? "blur(12px)" : undefined,
-        WebkitBackdropFilter: variant === "transparent" ? "blur(12px)" : undefined,
+        background: variant === "transparent" ? "rgba(9,13,20,0.7)" : bg,
+        backdropFilter: "blur(16px)",
+        WebkitBackdropFilter: "blur(16px)",
         borderBottom: "1px solid var(--color-border)",
       }}
     >
