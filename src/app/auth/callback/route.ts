@@ -12,20 +12,31 @@ export async function GET(request: Request) {
 
     if (!error && data.user) {
       const email = data.user.email ?? "";
-      const displayName = email ? email.split("@")[0] : "Dad";
+
+      const { data: existingProfile } = await supabase
+        .from("profiles")
+        .select("display_name, timezone")
+        .eq("id", data.user.id)
+        .single();
 
       await supabase.from("profiles").upsert(
         {
           id: data.user.id,
           email,
-          display_name: displayName,
-          timezone: "UTC",
+          display_name: existingProfile?.display_name ?? null,
+          timezone: existingProfile?.timezone ?? "UTC",
           updated_at: new Date().toISOString(),
         },
         { onConflict: "id" }
       );
 
-      const redirectUrl = next.startsWith("/") ? `${origin}${next}` : next;
+      const hasDisplayName = !!existingProfile?.display_name?.trim();
+      const redirectTo = hasDisplayName ? next : "/profile";
+      const redirectUrl =
+        redirectTo.startsWith("/")
+          ? `${origin}${redirectTo}${!hasDisplayName ? `?next=${encodeURIComponent(next)}` : ""}`
+          : redirectTo;
+
       return NextResponse.redirect(redirectUrl);
     }
   }

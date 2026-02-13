@@ -16,15 +16,15 @@ export default async function AppHomePage() {
     .eq("id", user.id)
     .single();
 
-  const displayName = profile?.display_name || user.email?.split("@")[0] || "there";
+  const displayName = profile?.display_name?.trim() || null;
 
   const steps = [
     {
       icon: "&#128100;",
-      title: "Set your profile",
-      desc: "Add your display name and timezone so other dads can find you.",
+      title: "Set your display name",
+      desc: "Choose a name other dads will see. Required to get started.",
       href: "/profile",
-      done: !!profile?.display_name,
+      done: !!profile?.display_name?.trim(),
     },
     {
       icon: "&#128336;",
@@ -56,10 +56,12 @@ export default async function AppHomePage() {
               You are in
             </p>
             <h1 className="text-hero" style={{ margin: 0 }}>
-              Welcome back, {displayName}
+              {displayName ? `Welcome back, ${displayName}` : "Welcome"}
             </h1>
             <p className="text-secondary text-lg" style={{ marginTop: "var(--s-3)" }}>
-              Get set up so we can start matching you with other dads.
+              {displayName
+                ? "Get set up so we can start matching you with other dads."
+                : "Set your display name first, then we can start matching you with other dads."}
             </p>
           </div>
 

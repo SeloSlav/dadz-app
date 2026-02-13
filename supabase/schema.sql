@@ -97,11 +97,7 @@ set search_path = public
 as $$
 begin
   insert into public.profiles (id, email, display_name)
-  values (
-    new.id,
-    new.email,
-    coalesce(split_part(new.email, '@', 1), 'Dad')
-  );
+  values (new.id, new.email, null);
   return new;
 end;
 $$;

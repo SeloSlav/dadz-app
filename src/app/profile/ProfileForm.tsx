@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/Button";
 import { useToast } from "@/components/Toast";
@@ -35,6 +36,8 @@ export function ProfileForm({
   initialTimezone,
   email,
 }: ProfileFormProps) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const { showToast } = useToast();
   const [displayName, setDisplayName] = useState(initialDisplayName);
   const [timezone, setTimezone] = useState(initialTimezone || "UTC");
@@ -50,11 +53,18 @@ export function ProfileForm({
     } = await supabase.auth.getUser();
     if (!user) return;
 
+    const trimmedName = displayName.trim();
+    if (!trimmedName) {
+      showToast("Display name is required", "error");
+      setSaving(false);
+      return;
+    }
+
     const { error } = await supabase.from("profiles").upsert(
       {
         id: user.id,
         email: user.email,
-        display_name: displayName.trim() || user.email?.split("@")[0] || "Dad",
+        display_name: trimmedName,
         timezone: timezone || "UTC",
         updated_at: new Date().toISOString(),
       },
@@ -69,6 +79,11 @@ export function ProfileForm({
     }
 
     showToast("Profile saved", "success");
+
+    const next = searchParams.get("next");
+    if (next && next.startsWith("/")) {
+      router.push(next);
+    }
   };
 
   return (
@@ -93,7 +108,7 @@ export function ProfileForm({
           </div>
 
           <div>
-            <label htmlFor="display_name">Display name</label>
+            <label htmlFor="display_name">Display name *</label>
             <input
               id="display_name"
               name="display_name"
@@ -103,6 +118,7 @@ export function ProfileForm({
               value={displayName}
               onChange={(e) => setDisplayName(e.target.value)}
               autoComplete="name"
+              required
             />
           </div>
 
