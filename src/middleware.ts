@@ -10,7 +10,17 @@ function isProtectedPath(pathname: string): boolean {
 }
 
 export async function middleware(request: NextRequest) {
-  const { response, user } = await updateSession(request);
+  let response: NextResponse;
+  let user: { id: string } | null = null;
+
+  try {
+    const result = await updateSession(request);
+    response = result.response;
+    user = result.user;
+  } catch (err) {
+    console.error("Middleware error:", err);
+    return NextResponse.next({ request });
+  }
 
   const pathname = request.nextUrl.pathname;
 
