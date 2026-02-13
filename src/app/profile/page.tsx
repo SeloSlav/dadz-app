@@ -17,18 +17,24 @@ export default async function ProfilePage() {
     .single();
 
   return (
-    <div className="container container-narrow" style={{ paddingBlock: "var(--space-12)" }}>
+    <>
       <Header user={user} />
+      <div className="container container-narrow" style={{ paddingBlock: "var(--s-12)" }}>
+        <main>
+          <div className="animate-fade-up" style={{ marginBottom: "var(--s-10)" }}>
+            <h1 className="text-hero" style={{ margin: 0 }}>Profile</h1>
+            <p className="text-secondary" style={{ marginTop: "var(--s-2)" }}>
+              How other dads will see you.
+            </p>
+          </div>
 
-      <main className="stack-8" style={{ marginTop: "var(--space-16)" }}>
-        <h1 className="text-hero">Profile</h1>
-
-        <ProfileForm
-          initialDisplayName={profile?.display_name ?? ""}
-          initialTimezone={profile?.timezone ?? ""}
-          email={user.email ?? ""}
-        />
-      </main>
-    </div>
+          <ProfileForm
+            initialDisplayName={profile?.display_name ?? ""}
+            initialTimezone={profile?.timezone ?? ""}
+            email={user.email ?? ""}
+          />
+        </main>
+      </div>
+    </>
   );
 }

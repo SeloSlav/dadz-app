@@ -2,33 +2,65 @@ import Link from "next/link";
 
 interface HeaderProps {
   user?: { email?: string } | null;
+  variant?: "transparent" | "solid";
 }
 
-export function Header({ user }: HeaderProps) {
+export function Header({ user, variant = "solid" }: HeaderProps) {
+  const bg = variant === "transparent" ? "transparent" : "var(--color-bg)";
+
   return (
     <header
-      className="flex items-center justify-between"
-      style={{ padding: "var(--space-4) 0", borderBottom: "1px solid var(--color-border)" }}
+      style={{
+        position: "sticky",
+        top: 0,
+        zIndex: 100,
+        background: bg,
+        backdropFilter: variant === "transparent" ? "blur(12px)" : undefined,
+        WebkitBackdropFilter: variant === "transparent" ? "blur(12px)" : undefined,
+        borderBottom: "1px solid var(--color-border)",
+      }}
     >
-      <Link href="/" className="text-xl" style={{ fontWeight: 700 }}>
-        Dadz
-      </Link>
-      <nav className="flex items-center gap-6">
-        {user ? (
-          <>
-            <Link href="/app" className="btn-ghost btn btn-sm">
-              App
-            </Link>
-            <Link href="/profile" className="btn-ghost btn btn-sm">
-              Profile
-            </Link>
-          </>
-        ) : (
-          <Link href="/login" className="btn-primary btn btn-sm">
-            Sign in
-          </Link>
-        )}
-      </nav>
+      <div
+        className="container flex items-center justify-between"
+        style={{ height: 64 }}
+      >
+        <Link
+          href="/"
+          style={{
+            fontSize: "1.25rem",
+            fontWeight: 800,
+            letterSpacing: "-0.04em",
+            color: "var(--color-fg)",
+          }}
+        >
+          dadz
+        </Link>
+
+        <nav className="flex items-center gap-2">
+          {user ? (
+            <>
+              <Link href="/app" className="btn btn-ghost btn-sm">
+                Dashboard
+              </Link>
+              <Link href="/profile" className="btn btn-ghost btn-sm">
+                Profile
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link href="/#how-it-works" className="btn btn-ghost btn-sm hide-mobile">
+                How it works
+              </Link>
+              <Link href="/#faq" className="btn btn-ghost btn-sm hide-mobile">
+                FAQ
+              </Link>
+              <Link href="/login" className="btn btn-primary btn-sm">
+                Get started
+              </Link>
+            </>
+          )}
+        </nav>
+      </div>
     </header>
   );
 }

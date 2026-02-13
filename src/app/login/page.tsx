@@ -2,10 +2,9 @@
 
 import { Suspense, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
-import { Header } from "@/components/Header";
 import { Button } from "@/components/Button";
-import { Input } from "@/components/Input";
 import { useToast } from "@/components/Toast";
 
 function LoginForm() {
@@ -55,85 +54,155 @@ function LoginForm() {
   };
 
   return (
-    <div className="container container-narrow" style={{ paddingBlock: "var(--space-12)" }}>
-      <Header />
+    <div
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "var(--s-6)",
+      }}
+    >
+      <div
+        className="animate-fade-up"
+        style={{ width: "100%", maxWidth: 420 }}
+      >
+        {/* Logo */}
+        <Link
+          href="/"
+          style={{
+            display: "block",
+            fontSize: "1.5rem",
+            fontWeight: 800,
+            letterSpacing: "-0.04em",
+            color: "var(--color-fg)",
+            textAlign: "center",
+            marginBottom: "var(--s-10)",
+          }}
+        >
+          dadz
+        </Link>
 
-      <main className="stack-8" style={{ marginTop: "var(--space-16)" }}>
-        <div>
-          <h1 className="text-hero">Sign in</h1>
-          <p className="text-muted text-lg" style={{ marginTop: "var(--space-4)" }}>
-            Get a magic link sent to your email. No password needed.
-          </p>
-        </div>
-
-        {status === "sent" ? (
-          <div className="card stack-4">
-            <h2 style={{ margin: 0, fontSize: "1.25rem" }}>Check your email</h2>
-            <p className="text-muted" style={{ margin: 0 }}>
-              We sent a sign-in link to <strong>{email}</strong>. Click it to continue.
-            </p>
-            {resendCooldown > 0 ? (
-              <p className="text-subtle" style={{ fontSize: "0.875rem", margin: 0 }}>
-                Resend available in {resendCooldown}s
-              </p>
-            ) : (
-              <Button
-                variant="secondary"
-                onClick={() => {
-                  setStatus("idle");
-                  setResendCooldown(0);
+        <div className="card" style={{ padding: "var(--s-8)" }}>
+          {status === "sent" ? (
+            <div className="text-center">
+              <div
+                style={{
+                  width: 56,
+                  height: 56,
+                  borderRadius: "50%",
+                  background: "var(--color-green-muted)",
+                  border: "1px solid rgba(52,211,153,0.2)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  margin: "0 auto var(--s-6)",
+                  fontSize: "1.5rem",
+                  color: "var(--color-green)",
                 }}
               >
-                Use a different email
-              </Button>
-            )}
-          </div>
-        ) : (
-          <form onSubmit={handleSubmit} className="stack-6">
-            <Input
-              label="Email"
-              name="email"
-              type="email"
-              placeholder="you@example.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              disabled={status === "sending"}
-              autoComplete="email"
-            />
-            <Button type="submit" disabled={status === "sending"}>
-              {status === "sending" ? "Sending..." : "Send magic link"}
-            </Button>
-          </form>
-        )}
+                &#10003;
+              </div>
+              <h1 style={{ margin: "0 0 var(--s-3)", fontSize: "1.25rem", fontWeight: 700 }}>
+                Check your email
+              </h1>
+              <p className="text-secondary text-sm" style={{ margin: "0 0 var(--s-6)" }}>
+                We sent a magic link to <strong style={{ color: "var(--color-fg)" }}>{email}</strong>.
+                Click it to sign in.
+              </p>
+              {resendCooldown > 0 ? (
+                <p className="text-muted text-sm" style={{ margin: 0 }}>
+                  Resend available in {resendCooldown}s
+                </p>
+              ) : (
+                <button
+                  className="btn btn-ghost btn-sm"
+                  onClick={() => { setStatus("idle"); setResendCooldown(0); }}
+                >
+                  Try a different email
+                </button>
+              )}
+            </div>
+          ) : (
+            <>
+              <div className="text-center" style={{ marginBottom: "var(--s-8)" }}>
+                <h1 style={{ margin: "0 0 var(--s-2)", fontSize: "1.5rem", fontWeight: 700 }}>
+                  Sign in
+                </h1>
+                <p className="text-secondary text-sm" style={{ margin: 0 }}>
+                  No password needed. We will send you a magic link.
+                </p>
+              </div>
 
-        <div className="stack-4">
-          <div style={{ display: "flex", alignItems: "center", gap: "var(--space-4)" }}>
-            <div style={{ flex: 1, height: 1, background: "var(--color-border)" }} />
-            <span className="text-subtle" style={{ fontSize: "0.875rem" }}>
-              or
-            </span>
-            <div style={{ flex: 1, height: 1, background: "var(--color-border)" }} />
-          </div>
-          <Button variant="secondary" onClick={handleSteamClick} type="button">
-            Sign in with Steam (coming soon)
-          </Button>
+              <form onSubmit={handleSubmit}>
+                <div style={{ marginBottom: "var(--s-4)" }}>
+                  <label htmlFor="email">Email</label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    className="input"
+                    placeholder="you@example.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    disabled={status === "sending"}
+                    autoComplete="email"
+                    autoFocus
+                  />
+                </div>
+                <Button
+                  type="submit"
+                  disabled={status === "sending"}
+                  className="w-full"
+                  size="lg"
+                >
+                  {status === "sending" ? "Sending..." : "Send magic link"}
+                </Button>
+              </form>
+
+              <div className="divider" style={{ margin: "var(--s-6) 0" }}>or</div>
+
+              <Button
+                variant="secondary"
+                onClick={handleSteamClick}
+                type="button"
+                className="w-full"
+              >
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <path d="M10 1.5a8.5 8.5 0 0 0-8.46 7.64l4.56 1.88a2.41 2.41 0 0 1 1.36-.42l2.04-2.95v-.04a3.22 3.22 0 1 1 3.22 3.22h-.07l-2.9 2.07a2.42 2.42 0 0 1-4.8.34L1.7 12.1A8.5 8.5 0 1 0 10 1.5z" fill="var(--color-fg-muted)"/>
+                </svg>
+                Sign in with Steam (coming soon)
+              </Button>
+            </>
+          )}
         </div>
-      </main>
+
+        <p className="text-center text-muted text-xs" style={{ marginTop: "var(--s-6)" }}>
+          By signing in you agree to our Terms and Privacy Policy.
+        </p>
+      </div>
     </div>
   );
 }
 
 export default function LoginPage() {
   return (
-    <Suspense fallback={
-      <div className="container container-narrow" style={{ paddingBlock: "var(--space-12)" }}>
-        <Header />
-        <main style={{ marginTop: "var(--space-16)" }}>
-          <div className="text-muted">Loading...</div>
-        </main>
-      </div>
-    }>
+    <Suspense
+      fallback={
+        <div
+          style={{
+            minHeight: "100vh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <p className="text-muted">Loading...</p>
+        </div>
+      }
+    >
       <LoginForm />
     </Suspense>
   );

@@ -2,9 +2,7 @@
 
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
-import { Card } from "@/components/Card";
 import { Button } from "@/components/Button";
-import { Input } from "@/components/Input";
 import { useToast } from "@/components/Toast";
 
 const TIMEZONES = [
@@ -23,6 +21,7 @@ const TIMEZONES = [
   "Asia/Shanghai",
   "Australia/Sydney",
   "Australia/Melbourne",
+  "Pacific/Auckland",
 ];
 
 interface ProfileFormProps {
@@ -74,27 +73,40 @@ export function ProfileForm({
 
   return (
     <form onSubmit={handleSubmit}>
-      <Card>
+      <div className="card animate-fade-up" style={{ padding: "var(--s-8)" }}>
         <div className="stack-6">
-          <Input
-            label="Email"
-            name="email"
-            type="email"
-            value={email}
-            disabled
-            readOnly
-          />
+          <div>
+            <label htmlFor="email">Email</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              className="input"
+              value={email}
+              disabled
+              readOnly
+              style={{ opacity: 0.5 }}
+            />
+            <p className="text-muted text-xs" style={{ marginTop: "var(--s-1)" }}>
+              Managed by your auth account. Cannot be changed here.
+            </p>
+          </div>
 
-          <Input
-            label="Display name"
-            name="display_name"
-            placeholder="What other dads will see"
-            value={displayName}
-            onChange={(e) => setDisplayName(e.target.value)}
-            autoComplete="name"
-          />
+          <div>
+            <label htmlFor="display_name">Display name</label>
+            <input
+              id="display_name"
+              name="display_name"
+              type="text"
+              className="input"
+              placeholder="What other dads will see"
+              value={displayName}
+              onChange={(e) => setDisplayName(e.target.value)}
+              autoComplete="name"
+            />
+          </div>
 
-          <div className="stack-2">
+          <div>
             <label htmlFor="timezone">Timezone</label>
             <select
               id="timezone"
@@ -105,17 +117,17 @@ export function ProfileForm({
             >
               {TIMEZONES.map((tz) => (
                 <option key={tz} value={tz}>
-                  {tz}
+                  {tz.replace(/_/g, " ")}
                 </option>
               ))}
             </select>
           </div>
 
-          <Button type="submit" disabled={saving}>
-            {saving ? "Saving..." : "Save"}
+          <Button type="submit" disabled={saving} size="lg">
+            {saving ? "Saving..." : "Save profile"}
           </Button>
         </div>
-      </Card>
+      </div>
     </form>
   );
 }

@@ -4,33 +4,34 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   id?: string;
   error?: string;
+  large?: boolean;
 }
 
 export function Input({
   label,
   id,
   error,
+  large = false,
   className = "",
   ...props
 }: InputProps) {
-  const inputId = id ?? props.name ?? `input-${Math.random().toString(36).slice(2)}`;
+  const inputId = id ?? props.name ?? undefined;
 
   return (
-    <div className="stack-2">
-      {label && (
-        <label htmlFor={inputId}>
-          {label}
-        </label>
-      )}
+    <div>
+      {label && <label htmlFor={inputId}>{label}</label>}
       <input
         id={inputId}
-        className={`input ${className}`.trim()}
+        className={`input ${large ? "input-lg" : ""} ${className}`.trim()}
         aria-invalid={!!error}
         aria-describedby={error ? `${inputId}-error` : undefined}
         {...props}
       />
       {error && (
-        <p id={`${inputId}-error`} className="text-muted" style={{ fontSize: "0.875rem", color: "var(--color-error)" }}>
+        <p
+          id={`${inputId}-error`}
+          style={{ fontSize: "0.8125rem", color: "var(--color-red)", marginTop: "var(--s-1)" }}
+        >
           {error}
         </p>
       )}

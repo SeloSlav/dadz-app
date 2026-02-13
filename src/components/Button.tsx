@@ -9,6 +9,18 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
 }
 
+const variantMap = {
+  primary: "btn-primary",
+  secondary: "btn-secondary",
+  ghost: "btn-ghost",
+} as const;
+
+const sizeMap = {
+  default: "",
+  sm: "btn-sm",
+  lg: "btn-lg",
+} as const;
+
 export function Button({
   variant = "primary",
   size = "default",
@@ -16,18 +28,9 @@ export function Button({
   children,
   ...props
 }: ButtonProps) {
-  const variantClass =
-    variant === "primary"
-      ? "btn-primary"
-      : variant === "secondary"
-        ? "btn-secondary"
-        : "btn-ghost";
-  const sizeClass =
-    size === "lg" ? "btn-lg" : size === "sm" ? "btn-sm" : "";
-
   return (
     <button
-      className={`btn ${variantClass} ${sizeClass} ${className}`.trim()}
+      className={`btn ${variantMap[variant]} ${sizeMap[size]} ${className}`.trim()}
       {...props}
     >
       {children}
