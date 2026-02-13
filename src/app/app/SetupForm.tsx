@@ -81,6 +81,7 @@ const POPULAR_GAMES = [
 interface SetupFormProps {
   initialDisplayName: string;
   initialTimezone: string;
+  initialBio?: string;
   initialDays: number[];
   initialStart: string;
   initialEnd: string;
@@ -93,6 +94,7 @@ interface SetupFormProps {
 export function SetupForm({
   initialDisplayName,
   initialTimezone,
+  initialBio = "",
   initialDays,
   initialStart,
   initialEnd,
@@ -104,6 +106,7 @@ export function SetupForm({
   const { showToast } = useToast();
   const [displayName, setDisplayName] = useState(initialDisplayName);
   const [timezone, setTimezone] = useState(initialTimezone || "UTC");
+  const [bio, setBio] = useState(initialBio);
   const [days, setDays] = useState<Set<number>>(new Set(initialDays));
   const formatTime = (t: string) => (t ? t.slice(0, 5) : "");
   const [startTime, setStartTime] = useState(formatTime(initialStart) || "20:00");
@@ -152,6 +155,7 @@ export function SetupForm({
         email: user.email,
         display_name: trimmedName,
         timezone: timezone || "UTC",
+        bio: bio.trim() || null,
         updated_at: new Date().toISOString(),
       },
       { onConflict: "id" }
@@ -253,6 +257,19 @@ export function SetupForm({
                 onChange={(e) => setDisplayName(e.target.value)}
                 autoComplete="name"
                 required
+              />
+            </div>
+            <div>
+              <label htmlFor="bio">Bio</label>
+              <textarea
+                id="bio"
+                name="bio"
+                className="input"
+                placeholder="A bit about you—dad life, play style, what you're looking for..."
+                value={bio}
+                onChange={(e) => setBio(e.target.value)}
+                rows={3}
+                style={{ resize: "vertical", minHeight: 80 }}
               />
             </div>
             <div>

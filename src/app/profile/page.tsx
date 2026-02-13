@@ -14,7 +14,7 @@ export default async function ProfilePage() {
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("display_name, timezone")
+    .select("display_name, timezone, bio")
     .eq("id", user.id)
     .single();
 
@@ -55,6 +55,7 @@ export default async function ProfilePage() {
           <SetupForm
             initialDisplayName={profile?.display_name ?? ""}
             initialTimezone={profile?.timezone ?? ""}
+            initialBio={profile?.bio ?? ""}
             initialDays={availability?.days_of_week ?? []}
             initialStart={availability?.start_time ?? ""}
             initialEnd={availability?.end_time ?? ""}

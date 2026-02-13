@@ -460,6 +460,9 @@ label {
 .lobby-row:hover {
   background: rgba(79, 143, 255, 0.04);
 }
+.lobby-row-link:hover {
+  color: var(--color-accent-light) !important;
+}
 .stack-4 > * + * { margin-top: var(--s-4); }
 .stack-6 > * + * { margin-top: var(--s-6); }
 .stack-8 > * + * { margin-top: var(--s-8); }

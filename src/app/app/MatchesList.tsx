@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { MessageLink } from "@/components/MessageLink";
 
 type Dad = {
@@ -70,7 +71,13 @@ export function MatchesList({ dads }: { dads: Dad[] }) {
                 className="lobby-row"
               >
                 <td style={{ padding: "var(--s-3) var(--s-4)", fontWeight: 600 }}>
-                  {m.display_name}
+                  <Link
+                    href={`/profile/${m.id}`}
+                    style={{ color: "inherit", textDecoration: "none" }}
+                    className="lobby-row-link"
+                  >
+                    {m.display_name}
+                  </Link>
                 </td>
                 <td style={{ padding: "var(--s-3) var(--s-4)", fontSize: "0.875rem", color: "var(--color-fg-secondary)" }}>
                   {m.shared_games?.length
