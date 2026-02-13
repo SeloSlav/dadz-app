@@ -49,8 +49,7 @@ export default async function LandingPage() {
                   style={{ marginTop: "var(--s-6)", maxWidth: "36rem", lineHeight: 1.6 }}
                 >
                   Kids are finally asleep. You have maybe 90 minutes. Dadz finds you dads
-                  to play with—online right now—or lets you lock in a session for later. No
-                  guilt. No pressure. Just play.
+                  to play with—online right now—or lets you lock in a session for later. No bullshit.
                 </p>
 
                 <div style={{ marginTop: "var(--s-8)" }}>
@@ -457,7 +456,7 @@ export default async function LandingPage() {
           8. FOOTER
           Job: Professional legitimacy
           ═══════════════════════════════════════════ */}
-      <Footer />
+      <Footer user={user} />
     </>
   );
 }

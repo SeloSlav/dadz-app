@@ -28,69 +28,91 @@ function compatibilityScore(d: Dad): { score: number; label: string } {
 export function MatchesList({ dads }: { dads: Dad[] }) {
   return (
     <div
-      className="stack-3 scrollbar-styled"
+      className="scrollbar-styled"
       style={{
-        maxHeight: "min(420px, 55vh)",
+        overflowX: "auto",
         overflowY: "auto",
-        overflowX: "hidden",
-        marginRight: "calc(-1 * var(--s-2))",
-        paddingRight: "var(--s-2)",
+        maxHeight: "min(480px, 60vh)",
+        borderRadius: "var(--r-xl)",
+        border: "1px solid var(--color-border)",
+        background: "linear-gradient(180deg, rgba(21,29,46,0.95) 0%, rgba(17,24,39,0.98) 100%)",
       }}
     >
-      {dads.map((m) => {
-        const { score, label } = compatibilityScore(m);
-        return (
-          <div
-            key={m.id}
-            className="card"
-            style={{
-              padding: "var(--s-4) var(--s-5)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              gap: "var(--s-4)",
-              flexWrap: "wrap",
-              borderLeft: m.in_window ? "4px solid var(--color-green)" : undefined,
-            }}
-          >
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "var(--s-2)", marginBottom: "var(--s-1)", flexWrap: "wrap" }}>
-                <span style={{ fontWeight: 600 }}>{m.display_name}</span>
-                {m.in_window && (
+      <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 520 }}>
+        <thead>
+          <tr style={{ borderBottom: "1px solid var(--color-border)" }}>
+            <th style={{ textAlign: "left", padding: "var(--s-3) var(--s-4)", fontSize: "0.75rem", fontWeight: 600, color: "var(--color-fg-muted)", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+              Player
+            </th>
+            <th style={{ textAlign: "left", padding: "var(--s-3) var(--s-4)", fontSize: "0.75rem", fontWeight: 600, color: "var(--color-fg-muted)", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+              Games / Match
+            </th>
+            <th style={{ textAlign: "center", padding: "var(--s-3) var(--s-4)", fontSize: "0.75rem", fontWeight: 600, color: "var(--color-fg-muted)", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+              Status
+            </th>
+            <th style={{ textAlign: "center", padding: "var(--s-3) var(--s-4)", fontSize: "0.75rem", fontWeight: 600, color: "var(--color-fg-muted)", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+              Match %
+            </th>
+            <th style={{ width: 52, padding: "var(--s-3) var(--s-4)" }} />
+          </tr>
+        </thead>
+        <tbody>
+          {dads.map((m) => {
+            const { score, label } = compatibilityScore(m);
+            return (
+              <tr
+                key={m.id}
+                style={{
+                  borderBottom: "1px solid var(--color-border)",
+                  borderLeft: m.in_window ? "4px solid var(--color-green)" : "4px solid transparent",
+                  transition: "background 0.15s ease",
+                }}
+                className="lobby-row"
+              >
+                <td style={{ padding: "var(--s-3) var(--s-4)", fontWeight: 600 }}>
+                  {m.display_name}
+                </td>
+                <td style={{ padding: "var(--s-3) var(--s-4)", fontSize: "0.875rem", color: "var(--color-fg-secondary)" }}>
+                  {m.shared_games?.length
+                    ? `${m.shared_games.slice(0, 3).join(", ")}${m.shared_games.length > 3 ? ` +${m.shared_games.length - 3}` : ""}`
+                    : label}
+                </td>
+                <td style={{ padding: "var(--s-3) var(--s-4)", textAlign: "center" }}>
+                  {m.in_window ? (
+                    <span
+                      className="badge"
+                      style={{
+                        fontSize: "0.7rem",
+                        background: "var(--color-green-muted)",
+                        color: "var(--color-green)",
+                        border: "1px solid rgba(52,211,153,0.3)",
+                      }}
+                    >
+                      Available
+                    </span>
+                  ) : (
+                    <span style={{ fontSize: "0.8125rem", color: "var(--color-fg-subtle)" }}>—</span>
+                  )}
+                </td>
+                <td style={{ padding: "var(--s-3) var(--s-4)", textAlign: "center", fontVariantNumeric: "tabular-nums" }}>
                   <span
-                    className="badge"
                     style={{
-                      fontSize: "0.7rem",
-                      background: "var(--color-green-muted)",
-                      color: "var(--color-green)",
-                      border: "1px solid rgba(52,211,153,0.3)",
+                      fontSize: "0.875rem",
+                      fontWeight: 600,
+                      color: score >= 70 ? "var(--color-green)" : score >= 40 ? "var(--color-accent-light)" : "var(--color-fg-muted)",
                     }}
                   >
-                    Available now
+                    {score}%
                   </span>
-                )}
-                <span
-                  className="badge"
-                  style={{
-                    fontSize: "0.7rem",
-                    background: "var(--color-bg-muted)",
-                    color: "var(--color-fg-muted)",
-                    borderColor: "var(--color-border)",
-                  }}
-                >
-                  {score}%
-                </span>
-              </div>
-              <p className="text-muted text-sm" style={{ margin: 0 }}>
-                {m.shared_games?.length
-                  ? `${m.shared_games.slice(0, 3).join(", ")}${m.shared_games.length > 3 ? ` +${m.shared_games.length - 3} more` : ""}`
-                  : label}
-              </p>
-            </div>
-            <MessageLink userId={m.id} className="btn btn-primary btn-icon btn-sm" iconOnly />
-          </div>
-        );
-      })}
+                </td>
+                <td style={{ padding: "var(--s-2) var(--s-4)" }}>
+                  <MessageLink userId={m.id} className="btn btn-primary btn-icon btn-sm" iconOnly />
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     </div>
   );
 }

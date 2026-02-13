@@ -1,6 +1,8 @@
 import { Suspense } from "react";
+import Link from "next/link";
 import { ChatErrorHandler } from "@/components/ChatErrorHandler";
 import { MatchesList } from "@/app/app/MatchesList";
+import { Footer } from "@/components/Footer";
 import { createClient } from "@/lib/supabase/server";
 import { Header } from "@/components/Header";
 import { SetupForm } from "@/app/app/SetupForm";
@@ -51,12 +53,12 @@ export default async function AppHomePage() {
   return (
     <>
       <Header user={user} />
-      <div className="container container-narrow" style={{ paddingBlock: "var(--s-12)" }}>
+      <div className={dads.length > 0 ? "container" : "container container-narrow"} style={{ paddingBlock: "var(--s-12)" }}>
         <Suspense fallback={null}>
           <ChatErrorHandler />
         </Suspense>
         <main>
-          <div className="animate-fade-up" style={{ marginBottom: "var(--s-8)" }}>
+          <div className="animate-fade-up" style={{ marginBottom: dads.length > 0 ? "var(--s-6)" : "var(--s-8)" }}>
             <p className="badge" style={{ marginBottom: "var(--s-4)" }}>
               <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--color-accent)", display: "inline-block" }} />
               You're in
@@ -64,24 +66,28 @@ export default async function AppHomePage() {
             <h1 className="text-hero" style={{ margin: 0 }}>
               {displayName ? `Welcome back, ${displayName}` : "Welcome"}
             </h1>
-            <p className="text-secondary" style={{ marginTop: "var(--s-2)" }}>
-              {allComplete
-                ? (dads.length > 0 ? "Here's who you can play with." : "You're set up. Dads will show here when they join.")
-                : "Set your display name, hours, and games to get started."}
-            </p>
+            <div style={{ display: "flex", alignItems: "center", gap: "var(--s-4)", flexWrap: "wrap", marginTop: "var(--s-2)" }}>
+              <p className="text-secondary" style={{ margin: 0 }}>
+                {allComplete
+                  ? (dads.length > 0 ? "Here's who you can play with." : "You're set up. Dads will show here when they join.")
+                  : "Set your display name, hours, and games to get started."}
+              </p>
+              {dads.length > 0 && (
+                <Link href="/profile" className="btn btn-ghost btn-outline btn-sm">
+                  Edit profile
+                </Link>
+              )}
+            </div>
           </div>
 
           {/* Matches first when set up—the main reason to visit */}
           {allComplete && (
             <>
               {dads.length > 0 ? (
-                <div
-                  className="card animate-fade-up"
-                  style={{ marginBottom: "var(--s-10)", padding: "var(--s-8)" }}
-                >
-                  <div style={{ display: "flex", alignItems: "center", gap: "var(--s-3)", marginBottom: "var(--s-2)", flexWrap: "wrap" }}>
+                <div className="animate-fade-up" style={{ marginBottom: "var(--s-10)" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "var(--s-3)", marginBottom: "var(--s-4)", flexWrap: "wrap" }}>
                     <h2 style={{ margin: 0, fontSize: "1.25rem", fontWeight: 700 }}>
-                      Dads to play with
+                      Lobby
                     </h2>
                     <span
                       className="badge"
@@ -90,8 +96,8 @@ export default async function AppHomePage() {
                       {dads.length} {dads.length === 1 ? "dad" : "dads"}
                     </span>
                   </div>
-                  <p className="text-secondary text-sm" style={{ margin: "0 0 var(--s-6)" }}>
-                    Compatibility based on shared games and schedule. "Available now" = in their usual window.
+                  <p className="text-secondary text-sm" style={{ margin: "0 0 var(--s-4)" }}>
+                    Compatibility based on shared games and schedule. "Available" = in their usual window.
                   </p>
                   <MatchesList dads={dads} />
                 </div>
@@ -118,23 +124,26 @@ export default async function AppHomePage() {
             </>
           )}
 
-          {/* Profile form—onboarding or updates */}
-          <div style={{ marginTop: allComplete ? 0 : 0 }}>
-            <h2 style={{ margin: "0 0 var(--s-4)", fontSize: "1.125rem", fontWeight: 600 }}>
-              {allComplete ? "Your profile" : "Get set up"}
-            </h2>
-            <SetupForm
-              initialDisplayName={profile?.display_name ?? ""}
-              initialTimezone={profile?.timezone ?? ""}
-              initialDays={availability?.days_of_week ?? []}
-              initialStart={availability?.start_time ?? ""}
-              initialEnd={availability?.end_time ?? ""}
-              initialGames={gamePrefs?.game_titles ?? []}
-              email={user.email ?? ""}
-            />
-          </div>
+          {/* Profile form—only when no matches (onboarding or no matches yet) */}
+          {dads.length === 0 && (
+            <div>
+              <h2 style={{ margin: "0 0 var(--s-4)", fontSize: "1.125rem", fontWeight: 600 }}>
+                {allComplete ? "Your profile" : "Get set up"}
+              </h2>
+              <SetupForm
+                initialDisplayName={profile?.display_name ?? ""}
+                initialTimezone={profile?.timezone ?? ""}
+                initialDays={availability?.days_of_week ?? []}
+                initialStart={availability?.start_time ?? ""}
+                initialEnd={availability?.end_time ?? ""}
+                initialGames={gamePrefs?.game_titles ?? []}
+                email={user.email ?? ""}
+              />
+            </div>
+          )}
         </main>
       </div>
+      <Footer user={user} />
     </>
   );
 }

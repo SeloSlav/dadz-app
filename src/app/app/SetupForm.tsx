@@ -86,6 +86,8 @@ interface SetupFormProps {
   initialEnd: string;
   initialGames: string[];
   email: string;
+  /** Redirect to this path after successful save (e.g. /app when on profile page) */
+  redirectOnSave?: string;
 }
 
 export function SetupForm({
@@ -96,6 +98,7 @@ export function SetupForm({
   initialEnd,
   initialGames,
   email,
+  redirectOnSave,
 }: SetupFormProps) {
   const router = useRouter();
   const { showToast } = useToast();
@@ -209,7 +212,11 @@ export function SetupForm({
     }
 
     showToast("Saved", "success");
-    router.refresh();
+    if (redirectOnSave) {
+      router.push(redirectOnSave);
+    } else {
+      router.refresh();
+    }
   };
 
   return (

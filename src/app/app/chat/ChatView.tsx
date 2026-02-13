@@ -131,7 +131,7 @@ export function ChatView({
           gap: "var(--s-4)",
         }}
       >
-        <Link href="/app" className="btn btn-ghost btn-sm" style={{ padding: "var(--s-1) var(--s-2)" }}>
+        <Link href="/app" className="btn btn-ghost btn-outline btn-sm">
           ← Back
         </Link>
         <h2 style={{ margin: 0, fontSize: "1.125rem", fontWeight: 600 }}>

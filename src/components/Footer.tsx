@@ -1,6 +1,10 @@
 import Link from "next/link";
 
-export function Footer() {
+interface FooterProps {
+  user?: { id?: string } | null;
+}
+
+export function Footer({ user }: FooterProps) {
   return (
     <footer
       style={{
@@ -35,8 +39,14 @@ export function Footer() {
               <p className="text-xs text-subtle" style={{ fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em", margin: 0 }}>
                 Account
               </p>
-              <Link href="/login" className="text-sm text-secondary" style={{ display: "block" }}>Sign in</Link>
-              <Link href="/login" className="text-sm text-secondary" style={{ display: "block" }}>Create account</Link>
+              {user ? (
+                <Link href="/app" className="text-sm text-secondary" style={{ display: "block" }}>Dashboard</Link>
+              ) : (
+                <>
+                  <Link href="/login" className="text-sm text-secondary" style={{ display: "block" }}>Sign in</Link>
+                  <Link href="/login" className="text-sm text-secondary" style={{ display: "block" }}>Create account</Link>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -47,8 +57,12 @@ export function Footer() {
         >
           <p style={{ margin: 0 }}>Dadz {new Date().getFullYear()}. All rights reserved.</p>
           <div className="flex gap-6">
-            <span>Privacy</span>
-            <span>Terms</span>
+            <Link href="/privacy" className="text-sm text-secondary">
+              Privacy
+            </Link>
+            <Link href="/terms" className="text-sm text-secondary">
+              Terms
+            </Link>
           </div>
         </div>
       </div>

@@ -230,6 +230,15 @@ img, svg { display: block; max-width: 100%; }
   color: var(--color-accent-light);
 }
 
+.btn-outline {
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: var(--r-lg);
+}
+.btn-outline:hover:not(:disabled) {
+  border-color: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
 .btn-lg  { padding: var(--s-4) var(--s-8); font-size: 1.0625rem; border-radius: var(--r-xl); }
 .btn-sm  { padding: var(--s-2) var(--s-4); font-size: 0.8125rem; }
 
@@ -445,6 +454,11 @@ label {
 }
 .scrollbar-styled::-webkit-scrollbar-thumb:hover {
   background: var(--color-fg-muted);
+}
+
+/* Lobby table row hover */
+.lobby-row:hover {
+  background: rgba(79, 143, 255, 0.04);
 }
 .stack-4 > * + * { margin-top: var(--s-4); }
 .stack-6 > * + * { margin-top: var(--s-6); }
